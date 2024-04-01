@@ -25,7 +25,7 @@ IGRF                            !  Magfield (NONE,DIPOLE,IGRF)
 2   0                           !  Mars Gravity Model N and M (<=18)
 2   0                           !  Luna Gravity Model N and M (<=18)
 FALSE   FALSE                   !  Aerodynamic Forces & Torques (Shadows)
-FALSE                           !  Gravity Gradient Torques
+TRUE                            !  Gravity Gradient Torques
 FALSE   FALSE                   !  Solar Pressure Forces & Torques (Shadows)
 FALSE                           !  Residual Magnetic Moment Torques
 FALSE                           !  Gravity Perturbation Forces
