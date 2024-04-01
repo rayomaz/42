@@ -15,7 +15,7 @@ NAN                         ! Ang Vel wrt [NL], Att [QA] wrt [NLF]
 0.0    0.0    0.0    1.0    ! Quaternion
 60.0  40.0   20.0    213    ! Angles (deg) & Euler Sequence
 ***************************  Dynamics Flags  ***************************
-ORDER_N                 	! Solve Dynamics by GAUSS_ELIM or ORDER_N
+GAUSS_ELIM                	! Solve Dynamics by GAUSS_ELIM or ORDER_N
 FALSE                       ! Compute Constraint Forces and Torques
 REFPT_CM                    ! Mass Props referenced to REFPT_CM or REFPT_JOINT
 FALSE                       ! Flex Active
@@ -33,7 +33,7 @@ NONE                        ! Shaker File Name
 0.0  0.0  0.0               ! Location of mass center, m
 0.0  0.0  0.0               ! Constant Embedded Momentum (Nms)
 0.0  0.0  0.0               ! Constant Embedded Magnetic Dipole (A-m^2)
-IonCruiser.obj              ! Geometry Input File Name
+Ball.obj                    ! Geometry Input File Name
 NONE                        ! Node File Name
 NONE                        ! Flex File Name
 ************************************************************************
