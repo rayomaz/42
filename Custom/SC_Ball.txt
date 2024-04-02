@@ -16,7 +16,7 @@ NAN                         ! Ang Vel wrt [NL], Att [QA] wrt [NLF]
 60.0  40.0   20.0    213    ! Angles (deg) & Euler Sequence
 ***************************  Dynamics Flags  ***************************
 GAUSS_ELIM                	! Solve Dynamics by GAUSS_ELIM or ORDER_N
-FALSE                       ! Compute Constraint Forces and Torques
+TRUE                        ! Compute Constraint Forces and Torques
 REFPT_CM                    ! Mass Props referenced to REFPT_CM or REFPT_JOINT
 FALSE                       ! Flex Active
 FALSE                       ! Include 2nd Order Flex Terms

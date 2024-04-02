@@ -1,7 +1,7 @@
 <<<<<<<<<<<<<<<<<  42: The Mostly Harmless Simulator  >>>>>>>>>>>>>>>>>
 ************************** Simulation Control **************************
 FAST                            !  Time Mode (FAST, REAL, EXTERNAL, or NOS3)
-1000.0    0.1                   !  Sim Duration, Step Size [sec]
+6000.0    0.1                   !  Sim Duration, Step Size [sec]
 10.0                            !  File Output Interval [sec]
 0                               !  RNG Seed
 TRUE                            !  Graphics Front End?
@@ -28,7 +28,7 @@ FALSE   FALSE                   !  Aerodynamic Forces & Torques (Shadows)
 TRUE                            !  Gravity Gradient Torques
 FALSE   FALSE                   !  Solar Pressure Forces & Torques (Shadows)
 FALSE                           !  Residual Magnetic Moment Torques
-FALSE                           !  Gravity Perturbation Forces
+TRUE                            !  Gravity Perturbation Forces
 FALSE                           !  Thruster Plume Forces & Torques
 FALSE                           !  Contact Forces and Torques
 FALSE                           !  CFD Slosh Forces and Torques
