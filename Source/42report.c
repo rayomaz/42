@@ -96,22 +96,27 @@ void MagReport(void)
 /*********************************************************************/
 void GyroReport(void)
 {
-      static FILE *gyrofile;
-      static long First = 1;
-      
-      if (First) {
-         First = 0;
-         gyrofile = FileOpen(InOutPath,"Gyro.42","wt");
-      }
-      
-      fprintf(gyrofile,"%le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le \n",
-         SC[0].B[0].wn[0],SC[0].B[0].wn[1],SC[0].B[0].wn[2],
-         SC[0].Gyro[0].TrueRate,SC[0].Gyro[1].TrueRate,SC[0].Gyro[2].TrueRate,
-         SC[0].Gyro[0].Bias,SC[0].Gyro[1].Bias,SC[0].Gyro[2].Bias,
-         SC[0].Gyro[0].Angle,SC[0].Gyro[1].Angle,SC[0].Gyro[2].Angle,
-         SC[0].Gyro[0].MeasRate,SC[0].Gyro[1].MeasRate,SC[0].Gyro[2].MeasRate,
-         SC[0].AC.wbn[0],SC[0].AC.wbn[1],SC[0].AC.wbn[2]);
-      
+    static FILE *gyrofile;
+    static long First = 1;
+    
+    if (First) {
+        First = 0;
+        gyrofile = FileOpen(InOutPath,"Gyro.42","w");
+    }
+    
+    if (OutFlag) {
+        fprintf(gyrofile,"%le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le \n",
+            SC[0].B[0].wn[0],SC[0].B[0].wn[1],SC[0].B[0].wn[2],
+            SC[0].Gyro[0].TrueRate,SC[0].Gyro[1].TrueRate,SC[0].Gyro[2].TrueRate,
+            SC[0].Gyro[0].Bias,SC[0].Gyro[1].Bias,SC[0].Gyro[2].Bias,
+            SC[0].Gyro[0].Angle,SC[0].Gyro[1].Angle,SC[0].Gyro[2].Angle,
+            SC[0].Gyro[0].MeasRate,SC[0].Gyro[1].MeasRate,SC[0].Gyro[2].MeasRate,
+            SC[0].AC.wbn[0],SC[0].AC.wbn[1],SC[0].AC.wbn[2]);
+    }
+
+    if (CleanUpFlag) {
+        fclose(gyrofile);
+    }
 }
 /*********************************************************************/
 void OrbPropReport(void)
@@ -187,6 +192,7 @@ void Report(void)
       static FILE *AccFile;
       //static FILE *Kepfile;
       //static FILE *EHfile;
+      static FILE *gyrofile; // Static file pointer for gyro data
       static char First = TRUE;
       long Isc,i;
       struct DynType *D;
@@ -204,6 +210,7 @@ void Report(void)
          timefile = FileOpen(InOutPath,"time.42","w");
          DynTimeFile = FileOpen(InOutPath,"DynTime.42","w");
          UtcDateFile = FileOpen(InOutPath,"UTC.42","w");
+         gyrofile = FileOpen(InOutPath, "Gyro.42", "w");
 
          ufile = (FILE **) calloc(Nsc,sizeof(FILE *));
          xfile = (FILE **) calloc(Nsc,sizeof(FILE *));
@@ -380,7 +387,7 @@ void Report(void)
             //GmatReport();
             
             //MagReport();
-            //GyroReport();
+            GyroReport();
             
             //fprintf(EHfile,"%le %le %le %le %le %le\n",
             //   SC[0].PosEH[0],SC[0].PosEH[1],SC[0].PosEH[2],
@@ -395,9 +402,11 @@ void Report(void)
 
       if (CleanUpFlag) {
          fclose(timefile);
+         
+         if (gyrofile) fclose(gyrofile);
       }
-
 }
+
 
 /* #ifdef __cplusplus
 ** }
