@@ -84,6 +84,7 @@ EXTERN long ResidualDipoleActive;
 EXTERN long ContactActive;
 EXTERN long SloshActive;
 EXTERN long AlbedoActive; /* Affects CSS measurements */
+EXTERN long AlbedoEffectActive;
 EXTERN long ComputeEnvTrq;
 EXTERN long EphemOption; /* MEAN or DE430 */
 
