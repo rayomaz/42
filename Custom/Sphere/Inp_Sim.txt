@@ -11,7 +11,7 @@ Inp_Cmd.txt                     !  Command Script File Name
 TRUE   Orb_LEO.txt              !  Input file name for Orb 0
 *****************************  Spacecraft  *****************************
 1                               !  Number of Spacecraft
-TRUE 0 SC_Ball.txt              !  Existence, RefOrb, Input file for SC 0
+TRUE 0 SC_sphere.txt            !  Existence, RefOrb, Input file for SC 0
 ***************************** Environment  *****************************
 07 10 2029                      !  Date (UTC) (Month, Day, Year)
 08 30 10.00                     !  Time (UTC) (Hr,Min,Sec)
@@ -24,15 +24,15 @@ IGRF                            !  Magfield (NONE,DIPOLE,IGRF)
 8   8                           !  Earth Gravity Model N and M (<=18)
 2   0                           !  Mars Gravity Model N and M (<=18)
 2   0                           !  Luna Gravity Model N and M (<=18)
-FALSE   FALSE                   !  Aerodynamic Forces & Torques (Shadows)
+TRUE  TRUE                      !  Aerodynamic Forces & Torques (Shadows)
 TRUE                            !  Gravity Gradient Torques
-FALSE   FALSE                   !  Solar Pressure Forces & Torques (Shadows)
+TRUE  TRUE                      !  Solar Pressure Forces & Torques (Shadows)
 FALSE                           !  Residual Magnetic Moment Torques
 TRUE                            !  Gravity Perturbation Forces
 FALSE                           !  Thruster Plume Forces & Torques
 FALSE                           !  Contact Forces and Torques
 FALSE                           !  CFD Slosh Forces and Torques
-FALSE                           !  Albedo Effect on CSS Measurements
+TRUE                            !  Albedo Effect on CSS Measurements
 FALSE                           !  Output Environmental Torques to Files
 ********************* Celestial Bodies of Interest *********************
 MEAN                            !  Ephem Option (MEAN, DE430, DE440)
