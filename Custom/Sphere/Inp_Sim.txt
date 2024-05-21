@@ -33,7 +33,8 @@ FALSE                           !  Thruster Plume Forces & Torques
 FALSE                           !  Contact Forces and Torques
 FALSE                           !  CFD Slosh Forces and Torques
 TRUE                            !  Albedo Effect on CSS Measurements
-FALSE                           !  Output Environmental Torques to Files
+TRUE                            !  Earth Albedo Forces and Torques
+TRUE                            !  Output Environmental Torques to Files
 ********************* Celestial Bodies of Interest *********************
 MEAN                            !  Ephem Option (MEAN, DE430, DE440)
 FALSE                           !  Mercury

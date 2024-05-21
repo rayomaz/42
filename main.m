@@ -22,8 +22,8 @@ load([base_path, 'Hvn.42']); % Angular momentum inertial frame
 load([base_path, 'Gyro.42']); % Extract gyroscope data
 [wn, trueRate, Bias, Angle, measRate, AC_wbn] = gyro_data(Gyro);
 
-L = external_torques(time, Hvb); % Compute external torque
-
+load([base_path, 'EnvTrq00.42']); % Extract torque
+L = external_torques(time, Hvb); % Compute total external torque
 
 %% Plots
 % Plot eci motion
@@ -80,15 +80,35 @@ ylabel("Angular Momentum [$kg m^2/s$]", 'Interpreter','latex', "FontSize", 25)
 legend("X", "Y", "Z", "Location", "best")
 print(gcf,['Custom/Figures/', spacecraft_type, '_angular_momentum.png'],'-dpng','-r500') 
 
-% Gyroscope data
+% Gyroscope data (Acceleration)
 figure
 grid on
 hold on
 plot(time, wn, 'LineWidth', 2);
 xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
-ylabel("Rate (rad/s)", 'Interpreter', 'latex', 'FontSize', 25);
+ylabel("Acceleration $[m/s^2]$", 'Interpreter', 'latex', 'FontSize', 25);
 legend("X", "Y", "Z", "Location", "best")
 print(gcf, ['Custom/Figures/', spacecraft_type, '_gyro.png'], '-dpng', '-r500');
+
+% External gravity gradient acceleratio
+figure
+grid on
+hold on
+plot(time, EnvTrq00(:, 1:3), 'LineWidth', 2);
+xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
+ylabel("Gravity Gradient $[m/s^2]$",'Interpreter', 'latex', 'FontSize', 25);
+legend("X", "Y", "Z", "Location", "best")
+print(gcf, ['Custom/Figures/', spacecraft_type, '_gravity gradient.png'], '-dpng', '-r500');
+
+% External drag acceleration
+figure
+grid on
+hold on
+plot(time, EnvTrq00(:, 4:6), 'LineWidth', 2);
+xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
+ylabel("Drag Acceleration $[m/s^2]$", 'Interpreter', 'latex', 'FontSize', 25);
+legend("X", "Y", "Z", "Location", "best")
+print(gcf, ['Custom/Figures/', spacecraft_type, '_drag.png'], '-dpng', '-r500');
 
 % External torque
 figure
@@ -96,7 +116,7 @@ grid on
 hold on
 plot(time(1:end-1), L, 'LineWidth', 2);
 xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
-ylabel("Rate (rad/s)", 'Interpreter', 'latex', 'FontSize', 25);
+ylabel("Torque [Nm]", 'Interpreter', 'latex', 'FontSize', 25);
 legend("X", "Y", "Z", "Location", "best")
 print(gcf, ['Custom/Figures/', spacecraft_type, '_torques.png'], '-dpng', '-r500');
 
