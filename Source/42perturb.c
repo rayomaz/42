@@ -1051,7 +1051,7 @@ void EarthAlbedoFrcTrq(struct SCType *S)
         // Find force and torque on each illuminated polygon
         for (Ipoly = 0; Ipoly < G->Npoly; Ipoly++) {
             P = &G->Poly[Ipoly];
-            if (strncmp(Matl[P->Matl].Label, "SHADED", 6)) 
+            if (strncmp(Matl[P->Matl].Label, "SHADED", 6)) {
                 MxV(B->CN, S->svn, svb);
                 SoN = VoV(svb, P->Norm);
                 if (SoN > 0.0) {
@@ -1074,6 +1074,7 @@ void EarthAlbedoFrcTrq(struct SCType *S)
         }
     }
 }
+
 
 
 /**********************************************************************/

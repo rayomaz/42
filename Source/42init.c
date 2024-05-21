@@ -4486,6 +4486,8 @@ void InitSim(int argc, char **argv)
       AlbedoActive=DecodeString(response);
       fscanf(infile,"%s  %[^\n] %[\n]",response,junk,&newline);
       ComputeEnvTrq=DecodeString(response);
+      fscanf(infile,"%s  %s %[^\n] %[\n]",response1,response2,junk,&newline);
+      AlbedoPressureActive=DecodeString(response1);
 /* .. Celestial Bodies */
       fscanf(infile,"%[^\n] %[\n]",junk,&newline);
       fscanf(infile,"%s %[^\n] %[\n]",response,junk,&newline);
