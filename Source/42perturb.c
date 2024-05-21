@@ -1024,6 +1024,58 @@ void EnvTrq(struct SCType *S)
       }
 
 }
+
+void EarthAlbedoFrcTrq(struct SCType *S)
+{
+    long Ib, i;
+    long Ipoly;
+    double albedoCoeff = 0.3; // Average albedo coefficient
+    double svb[3], SoN, Coef, r[3], Fb[3], Fn[3], Tb[3], AlbedoPressure;
+    struct BodyType *B;
+    struct GeomType *G;
+    struct PolyType *P;
+    struct MatlType *M;
+
+    // Albedo pressure at Earth's surface
+    AlbedoPressure = 4.5E-6 * albedoCoeff * 2.238E22 / VoV(S->PosH, S->PosH);
+
+    if (AlbedoPressureActive) {
+        FindUnshadedAreas(S, S->svn);
+    }
+
+    // Find Force and Torque on each Body
+    for (Ib = 0; Ib < S->Nb; Ib++) {
+        B = &S->B[Ib];
+        G = &Geom[B->GeomTag];
+
+        // Find force and torque on each illuminated polygon
+        for (Ipoly = 0; Ipoly < G->Npoly; Ipoly++) {
+            P = &G->Poly[Ipoly];
+            if (strncmp(Matl[P->Matl].Label, "SHADED", 6)) 
+                MxV(B->CN, S->svn, svb);
+                SoN = VoV(svb, P->Norm);
+                if (SoN > 0.0) {
+                    M = &Matl[P->Matl];
+                    Coef = -AlbedoPressure * P->UnshadedArea * SoN;
+                    for (i = 0; i < 3; i++) {
+                        Fb[i] = Coef * ((1.0 - M->SpecFrac) * svb[i] +
+                                        2.0 * (M->SpecFrac * SoN + M->DiffFrac / 3.0) * P->Norm[i]);
+                    }
+                    for (i = 0; i < 3; i++) r[i] = P->UnshadedCtr[i] - B->cm[i];
+                    VxV(r, Fb, Tb);
+                    MTxV(B->CN, Fb, Fn);
+                    for (i = 0; i < 3; i++) {
+                        B->FrcN[i] += Fn[i];
+                        B->FrcB[i] += Fb[i];
+                        B->Trq[i] += Tb[i];
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 /**********************************************************************/
 /*  This file contains perturbation torque and force models to apply  */
 /*  as desired to each spacecraft.                                    */
@@ -1060,6 +1112,9 @@ void Perturbations(struct SCType *S)
 
 /* .. Find Momentum Accumulation for Actuator Sizing */
       if (ComputeEnvTrq) EnvTrq(S);
+
+/* .. Earth Albedo Forces and Torques */
+      if (AlbedoPressureActive) EarthAlbedoFrcTrq(S);
 
 }
 
