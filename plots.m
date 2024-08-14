@@ -1,4 +1,5 @@
 %% Plots
+
 % Plot eci motion
 figure
 grid on
@@ -82,16 +83,3 @@ xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
 ylabel("Drag Acceleration $[m/s^2]$", 'Interpreter', 'latex', 'FontSize', 25);
 legend("X", "Y", "Z", "Location", "best")
 print(gcf, ['Custom/Figures/', spacecraft_type, '_drag.png'], '-dpng', '-r500');
-
-% External torque
-figure
-grid on
-hold on
-plot(time(1:end-1), L, 'LineWidth', 2);
-xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25);
-ylabel("Torque [Nm]", 'Interpreter', 'latex', 'FontSize', 25);
-legend("X", "Y", "Z", "Location", "best")
-print(gcf, ['Custom/Figures/', spacecraft_type, '_torques.png'], '-dpng', '-r500');
-
-% Close
-close all
