@@ -327,20 +327,25 @@ double UNITV(double V[3])
 {
       double A;
 
-      A=sqrt(V[0]*V[0]+V[1]*V[1]+V[2]*V[2]);
+      A = sqrt(V[0] * V[0] + V[1] * V[1] + V[2] * V[2]);
       if (A > 0.0) {
-         V[0]/=A;
-         V[1]/=A;
-         V[2]/=A;
+         V[0] /= A;
+         V[1] /= A;
+         V[2] /= A;
       }
       else {
-         printf("Attempted divide by zero in UNITV (Line %d of mathkit.c)\n",__LINE__);
-         V[0] = 0.0;
-         V[1] = 0.0;
-         V[2] = 0.0;
+         printf("Attempted divide by zero in UNITV (Line %d of mathkit.c)\n", __LINE__);
+         V[0] = 1e-6;
+         V[1] = 1e-6;
+         V[2] = 1e-6;
+         A = sqrt(V[0] * V[0] + V[1] * V[1] + V[2] * V[2]);
+         V[0] /= A;
+         V[1] /= A;
+         V[2] /= A;
       }
       return(A);
 }
+
 /**********************************************************************/
 /*  Copy and normalize a 3-vector.  Return its magnitude              */
 double CopyUnitV(double V[3], double W[3])

@@ -5,7 +5,7 @@
 clc; clear; close all;
 
 %% Call 42
-spacecraft_type = 'sphere';
+spacecraft_type = 'Sphere'; %'Custom'; 
 output = system(['./42 Custom/', spacecraft_type]);
 base_path = ['./Custom/', spacecraft_type, '/'];
 
