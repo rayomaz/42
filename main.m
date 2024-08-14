@@ -23,7 +23,6 @@ load([base_path, 'Gyro.42']); % Extract gyroscope data
 [wn, trueRate, Bias, Angle, measRate, AC_wbn] = gyro_data(Gyro);
 
 load([base_path, 'EnvTrq00.42']); % Extract torque
-L = external_torques(time, Hvb); % Compute total external torque
 
 %% Functions
 
@@ -37,24 +36,7 @@ function [wn, trueRate, Bias, Angle, measRate, AC_wbn] = gyro_data(Gyro)
     AC_wbn = Gyro(:, 16:18);
 end
 
-% Compute external torques
-function L = external_torques(time, H)
-    
-    L = zeros(3, length(time) - 1);
-    
-    for kk = 1:3
 
-        for jj = 1:(length(time) - 1)
-    
-            dH = H(jj + 1, kk) - H(jj, kk);
-            dt = time(jj + 1) - time(jj);
-            
-            L(kk, jj) = dH / dt;
-    
-        end
-    end
-    
-end
 
 
 
