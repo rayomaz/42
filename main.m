@@ -5,8 +5,8 @@
 clc; clear; close all;
 
 %% Call 42
-spacecraft_type = 'Sphere'; %'Custom'; 
-% output = system(['./42 Custom/', spacecraft_type]);
+spacecraft_type = 'Sphere';
+output = system(['./42 Custom/', spacecraft_type]);
 base_path = ['./Custom/', spacecraft_type, '/'];
 
 %% Load data
@@ -25,9 +25,9 @@ load([base_path, 'Gyro.42']); % Extract gyroscope data
 load([base_path, 'EnvTrq00.42']); % Extract torque
 
 %% Plots
-plot_spacecraft_data(time, ...
-                     PosN, VelN, qbn, wbn, Hvb, wn, ...
-                     EnvTrq00, spacecraft_type , false);
+% plot_spacecraft_data(time, ...
+%                      PosN, VelN, qbn, wbn, Hvb, wn, ...
+%                      EnvTrq00, spacecraft_type , false);
 
 
 
