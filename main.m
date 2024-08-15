@@ -24,6 +24,11 @@ load([base_path, 'Gyro.42']); % Extract gyroscope data
 
 load([base_path, 'EnvTrq00.42']); % Extract torque
 
+%% Plots
+plot_spacecraft_data(time, ...
+                     PosN, VelN, qbn, wbn, Hvb, wn, ...
+                     EnvTrq00, spacecraft_type , false);
+
 
 
 

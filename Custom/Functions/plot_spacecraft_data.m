@@ -79,27 +79,38 @@ function plot_spacecraft_data(time, PosN, VelN, qbn, wbn, Hvb, wn, EnvTrq00, spa
         print(gcf, ['Custom/Figures/', spacecraft_type, '_gyro.png'], '-dpng', '-r500');
     end
 
-    % External gravity gradient acceleration
-    figure
-    grid on
-    hold on
-    plot(time, EnvTrq00(:, 1:3), 'LineWidth', 2)
-    xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25)
-    ylabel("Gravity Gradient $[m/s^2]$", 'Interpreter', 'latex', 'FontSize', 25)
-    legend("X", "Y", "Z", "Location", "best")
-    if print_flag
-        print(gcf, ['Custom/Figures/', spacecraft_type, '_gravity gradient.png'], '-dpng', '-r500');
-    end
+    % Actuator data
+    N = max(size(time));
 
-    % External drag acceleration
+    Trq = EnvTrq00(:,1:3);
+    Mom = EnvTrq00(:,4:6);
+    
+    AvgTrq = mean(Trq);
+    SecMom = [AvgTrq(1)*time AvgTrq(2)*time AvgTrq(3)*time];
+    CycMom = Mom-SecMom;
+    CycMom = CycMom - [mean(CycMom(:,1))*ones(N,1) mean(CycMom(:,2))*ones(N,1) mean(CycMom(:,3))*ones(N,1)];
+
     figure
     grid on
     hold on
-    plot(time, EnvTrq00(:, 4:6), 'LineWidth', 2)
+    plot(time,Mom, 'LineWidth', 2)
+    title('Accumulated Environmental Momentum', 'FontSize', 25)
     xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25)
-    ylabel("Drag Acceleration $[m/s^2]$", 'Interpreter', 'latex', 'FontSize', 25)
+    ylabel('Nms')
     legend("X", "Y", "Z", "Location", "best")
-    if print_flag
-        print(gcf, ['Custom/Figures/', spacecraft_type, '_drag.png'], '-dpng', '-r500');
-    end
+
+    figure
+    plot(time,SecMom, 'LineWidth', 2)
+    title('Secular Momentum', 'FontSize', 25)
+    xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25)
+    ylabel('Nms')
+    legend("X", "Y", "Z", "Location", "best")
+    
+    figure
+    plot(time,CycMom, 'LineWidth', 2)
+    title('Cyclic Momentum')
+    xlabel("Time (s)", 'Interpreter', 'latex', 'FontSize', 25)
+    ylabel('Nms')
+    legend("X", "Y", "Z", "Location", "best")
+
 end
