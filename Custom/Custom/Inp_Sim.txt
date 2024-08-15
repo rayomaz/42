@@ -27,7 +27,7 @@ IGRF                            !  Magfield (NONE,DIPOLE,IGRF)
 TRUE  TRUE                      !  Aerodynamic Forces & Torques (Shadows)
 TRUE                            !  Gravity Gradient Torques
 TRUE  TRUE                      !  Solar Pressure Forces & Torques (Shadows)
-FALSE                           !  Residual Magnetic Moment Torques
+TRUE                            !  Residual Magnetic Moment Torques
 TRUE                            !  Gravity Perturbation Forces
 FALSE                           !  Thruster Plume Forces & Torques
 FALSE                           !  Contact Forces and Torques

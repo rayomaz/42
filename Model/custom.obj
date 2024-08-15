@@ -1,6 +1,6 @@
 # Nv = 144  Nvt = 0  Nvn = 144  Npoly = 128
 # Exported from ShapeData
-mtllib Ball.mtl
+mtllib custom.mtl
 o sphere1
 # 144 vertices, 128 faces
 # Vertices
