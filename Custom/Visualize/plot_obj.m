@@ -40,4 +40,4 @@ quiver3(arrow_start(1), arrow_start(2), arrow_start(3), ...
 text(arrow_end(1), arrow_end(2), arrow_end(3), '$\bar{a}_i$', 'FontSize', 18, 'Color', 'r', 'Interpreter', 'latex');
 
 % Save the figure
-saveas(figure_handle, 'ball_object_with_shaded_area_latex.png');
+saveas(figure_handle, 'ball_object_with_shaded_area.png');
