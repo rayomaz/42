@@ -1,15 +1,17 @@
+clc; clear; close;
+
 % Load the .obj file
 [obj.v, obj.f] = read_obj('../../Model/ball.obj');
 
 % Create a new figure
 figure_handle = figure;
 
-% Plot the object with most faces in a default color
-patch('Vertices', obj.v, 'Faces', obj.f, 'FaceColor', [0.8 0.8 1.0], 'EdgeColor', 'none');
+% Plot the object with most faces in a default color and black edges
+patch('Vertices', obj.v, 'Faces', obj.f, 'FaceColor', [0.8 0.8 1.0], 'EdgeColor', 'k');
 
-% Highlight a specific face with a different color
+% Highlight a specific face with the previous shaded color (e.g., light cyan)
 highlighted_face_index = 10; % Example face index, change as needed
-patch('Vertices', obj.v, 'Faces', obj.f(highlighted_face_index, :), 'FaceColor', [1.0 0.4 0.4], 'EdgeColor', 'none');
+patch('Vertices', obj.v, 'Faces', obj.f(highlighted_face_index, :), 'FaceColor', [0.4 0.8 0.7], 'EdgeColor', 'k');
 
 % Set view angle and axis properties
 view(3);
@@ -24,20 +26,18 @@ zlabel('Z');
 grid on;
 rotate3d on;
 
-% Get the centroid of the highlighted face for the arrow
-highlighted_face_vertices = obj.v(obj.f(highlighted_face_index, :), :);
-centroid = mean(highlighted_face_vertices, 1);
+% Define the arrow start and end points in data coordinates
+arrow_start = mean(obj.v(obj.f(highlighted_face_index, :), :)); % Start at the centroid of the highlighted face
+arrow_end = arrow_start + [0.4, 0.4, 0.4]; % Define the end point with larger arrow
 
-% Define arrow direction and length
-arrow_direction = [0 0.1 0.1]; % Change as needed
-arrow_start = centroid;
-arrow_end = arrow_start + arrow_direction;
+% Plot the arrow using quiver3 for better visibility
+hold on;
+quiver3(arrow_start(1), arrow_start(2), arrow_start(3), ...
+        arrow_end(1) - arrow_start(1), arrow_end(2) - arrow_start(2), arrow_end(3) - arrow_start(3), ...
+        'r', 'LineWidth', 3, 'MaxHeadSize', 2); % Larger arrow with thicker line and bigger head
 
-% Draw the arrow
-annotation('textarrow', 'X', arrow_start(1), 'Y', arrow_start(2), 'Z', arrow_start(3), ...
-           'String', '$\bar{a}_i$', 'Interpreter', 'latex', ...
-           'FontSize', 12, 'Color', 'red', ...
-           'XEnd', arrow_end(1), 'YEnd', arrow_end(2), 'ZEnd', arrow_end(3));
+% Add LaTeX text label with larger font size
+text(arrow_end(1), arrow_end(2), arrow_end(3), '$\bar{a}_i$', 'FontSize', 18, 'Color', 'r', 'Interpreter', 'latex');
 
 % Save the figure
-saveas(figure_handle, 'ball_object.png');
+saveas(figure_handle, 'ball_object_with_shaded_area_latex.png');
